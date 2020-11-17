@@ -1,3 +1,4 @@
+const axios = required('axios')
 function getData(){
 	axios({
 		method:'GET',
