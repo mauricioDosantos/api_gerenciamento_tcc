@@ -79,10 +79,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gerenciamento_tcc',
-        'USER': 'root',
-        'PASSWORD': "Bd_Connect",
+        'USER': 'django',
+        'PASSWORD': "Django_Bd#01",
         "HOST": "127.0.0.1",
-        "PORT": '3306',
+        "PORT": '3306',  #3306 192.168.1.1:6387
     }
 }
 
