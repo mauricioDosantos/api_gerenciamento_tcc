@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
+from pathlib import Path, PurePath
+from dj_database_url import parse as dburl
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^+%ei=)krm37rg+9aosw82p6ct6c=5h=zt#+@gid1d#$cl!^k*'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -77,12 +79,12 @@ WSGI_APPLICATION = 'gerenciamento_tcc.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gerenciamento_tcc',
-        'USER': 'django',
-        'PASSWORD': "Django_Bd#01",
-        "HOST": "127.0.0.1",
-        "PORT": '3306',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),  # gerenciamento_tcc
+        'USER': config('DB_USER'),  # django
+        'PASSWORD': config("DB_PASSWORD"),  # Django_Bd#01
+        "HOST": config("DB_HOST"),  # 127.0.0.1
+        "PORT": config('DB_PORT'),  #  3306
     }
 }
 
@@ -124,3 +126,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = PurePath(BASE_DIR, 'staticfiles')
